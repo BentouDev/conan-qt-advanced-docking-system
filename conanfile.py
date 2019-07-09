@@ -38,6 +38,11 @@ class ADSConan(ConanFile):
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup()""")
 
+        tools.replace_in_file("%s/CMakeLists.txt" % ("ads-source"), "set(REQUIRED_QT_VERSION 5.5.0)", 
+
+"""set(REQUIRED_QT_VERSION 5.12)
+""")
+
     def build(self):
         # Workaround for conan choosing cmake embedded in Visual Studio
         if platform.system() == "Windows" and 'AZURE' in os.environ:
