@@ -53,6 +53,7 @@ conan_basic_setup()""")
         cmake = CMake(self)
         cmake.definitions["BUILD_EXAMPLES"] = False
         cmake.definitions["BUILD_STATIC"] = not bool(self.options.shared)
+        cmake.definitions["CMAKE_PREFIX_PATH"] = os.getenv('QTDIR', '')
         cmake.configure(source_folder="ads-source")
         cmake.build()
         cmake.install()
