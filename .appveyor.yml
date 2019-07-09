@@ -1,5 +1,6 @@
 environment:
   PYTHON: "C:\\Python37"
+  QTDIR: "C:\\Qt\\5.12.2\\msvc2017_64\\"
   REPOSITORY_KEY:
     secure: 3jorWUxqWjnR0X8Ye5NsAurPzickp84H2a+/ILwlRA3EQXzv+jo+kv9tvI1YKyTE
   matrix:
