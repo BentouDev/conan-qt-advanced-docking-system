@@ -40,8 +40,8 @@ conan_basic_setup()""")
 
         tools.replace_in_file("%s/CMakeLists.txt" % ("ads-source"), "set(REQUIRED_QT_VERSION 5.5.0)", 
 
-"""set(REQUIRED_QT_VERSION 5.12)
-set(Qt5Core_DIR "%s" )""" % (os.getenv('QTDIR', '')))
+"""set(REQUIRED_QT_VERSION 5.12)""")
+#set(Qt5Core_DIR "%s" )""" % (os.getenv('QTDIR', '')))
 
     def build(self):
         # Workaround for conan choosing cmake embedded in Visual Studio
@@ -53,6 +53,7 @@ set(Qt5Core_DIR "%s" )""" % (os.getenv('QTDIR', '')))
         cmake = CMake(self)
         cmake.definitions["BUILD_EXAMPLES"] = False
         cmake.definitions["BUILD_STATIC"] = not bool(self.options.shared)
+        cmake.definitions["CMAKE_PREFIX_PATH"] = os.getenv('QTDIR', '')
         cmake.configure(source_folder="ads-source")
         cmake.build()
         cmake.install()
