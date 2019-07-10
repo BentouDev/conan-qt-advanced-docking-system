@@ -28,17 +28,19 @@ def createBuilder(channel, commit, password, version):
     else:
         build_types = ["Release", "Debug"]
 
-    # if password:
-    #     return ConanMultiPackager(username=username,
-    #             channel=channel,
-    #             stable_branch_pattern=branch_pattern,
-    #             visual_versions=visual_versions,
+    if password:
+         return ConanMultiPackager(username=username,
+                 channel=channel,
+                 stable_branch_pattern=branch_pattern,
+                 visual_versions=visual_versions,
+                 build_types=build_types,
+                 upload_retry=3,
 
-    #             upload="https://api.bintray.com/conan/bentoudev/yage",
-    #             password=password)
-    # else:
+                 upload="https://api.bintray.com/conan/bentoudev/yage",
+                 password=password)
+    else:
 
-    return ConanMultiPackager(username=username,
+        return ConanMultiPackager(username=username,
             channel=channel,
             stable_branch_pattern=branch_pattern,
             visual_versions=visual_versions,
