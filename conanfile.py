@@ -50,10 +50,13 @@ conan_basic_setup()""")
             print (' [DEBUG] Forcing CMake : ' + cmake_path)
             os.environ['CONAN_CMAKE_PROGRAM'] = cmake_path
 
+        qt_dir = os.getenv('QTDIR', '')
+        print (' [DEBUG] Qt dir : ' + qt_dir)
+
         cmake = CMake(self)
         cmake.definitions["BUILD_EXAMPLES"] = False
         cmake.definitions["BUILD_STATIC"] = not bool(self.options.shared)
-        cmake.definitions["CMAKE_PREFIX_PATH"] = os.getenv('QTDIR', '')
+        cmake.definitions["CMAKE_PREFIX_PATH"] = qt_dir
         cmake.configure(source_folder="ads-source")
         cmake.build()
         cmake.install()
