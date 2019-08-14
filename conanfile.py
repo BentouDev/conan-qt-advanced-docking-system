@@ -61,6 +61,28 @@ conan_basic_setup()""")
         cmake.build()
         cmake.install()
 
+    def package(self):
+        # source code
+        self.copy("*.h", dst="include", src="assimp-source/include")
+        self.copy("*.hpp", dst="include", src="assimp-source/include")
+        self.copy("*.inl", dst="include", src="assimp-source/include")
+
+        # generated config.h file
+        self.copy("*.h", dst="include", src="include")
+
+        if self.settings.os == "Windows":
+            self.copy("*.lib", dst="lib", keep_path=False)
+            self.copy("*.dll", dst="bin", keep_path=False)
+        else:
+            self.copy("*.so", dst="lib", keep_path=False)
+            self.copy("*.dylib", dst="lib", keep_path=False)
+            self.copy("*.a", dst="lib", keep_path=False)
+
+    def package_info(self):
+        self.cpp_info.libs = tools.collect_libs(self, folder="lib")
+        if not bool(self.options.shared):
+            self.cpp_info.defines = ["ADS_STATIC"]
+
     # def package_info(self):
     #     self.cpp_info.libs = tools.collect_libs(self)
     #     self.env_info.PKG_CONFIG_PATH.append(os.path.join(self.package_folder, "lib", "pkgconfig"))
